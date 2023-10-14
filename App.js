@@ -15,6 +15,11 @@ import {
   Clock,
   Message,
   SearchNormal,
+  Health,
+  People,
+  Activity,
+  Call,
+  Setting,
 } from 'iconsax-react-native';
 import {fontType, colors} from './src/theme';
 
@@ -27,8 +32,18 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>HAPPYOLD.</Text>
-        <Notification color={colors.black()} variant="Linear" size={24} />
+        <View style={{flex: 1}}>
+          <Text style={styles.title}>HAPPYOLD.</Text>
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <Notification
+            style={{marginRight: 15}}
+            color={colors.black()}
+            variant="Linear"
+            size={24}
+          />
+          <Setting color={colors.black()} variant="Linear" size={24} />
+        </View>
       </View>
       <View style={{paddingHorizontal: 24, marginTop: 10}}>
         <View style={styles.searchContainer}>
@@ -90,7 +105,7 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingHorizontal: 24,
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
     height: 52,
@@ -117,14 +132,24 @@ const category = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 25,
     alignItems: 'center',
-    backgroundColor: colors.grey(0.08),
+    gap: 20,
     marginHorizontal: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  itemCat: {
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 20,
   },
   title: {
     fontFamily: fontType['Pjs-SemiBold'],
     fontSize: 14,
     lineHeight: 18,
     color: colors.grey(),
+  },
+  textCat: {
+    color: 'black',
   },
 });
 
@@ -142,7 +167,7 @@ const ListBlog = () => {
               resizeMode="cover"
               imageStyle={{borderRadius: 50}}
               source={{
-                uri: 'https://i.pinimg.com/564x/b1/46/03/b1460331b4ad6040e2a52b6c1eca19f2.jpg',
+                uri: 'https://i.pinimg.com/564x/58/23/ba/5823ba24d2cce6ce325ba2f44623cf35.jpg',
               }}>
               <View style={itemHorizontal.cardContent}>
                 <View style={itemHorizontal.cardInfo}>
@@ -151,15 +176,7 @@ const ListBlog = () => {
                   </Text>
                   {/* <Text style={itemHorizontal.cardText}>Nov 10, 2023</Text> */}
                 </View>
-                <View>
-                  <View style={itemHorizontal.cardIcon}>
-                    <Receipt21
-                      color={colors.black()}
-                      variant="Linear"
-                      size={20}
-                    />
-                  </View>
-                </View>
+                <View></View>
               </View>
             </ImageBackground>
           </View>
@@ -169,7 +186,7 @@ const ListBlog = () => {
               resizeMode="cover"
               imageStyle={{borderRadius: 50}}
               source={{
-                uri: 'https://i.pinimg.com/564x/89/38/29/893829c2fec28450729da0f27ce05062.jpg',
+                uri: 'https://i.pinimg.com/564x/a6/ab/bc/a6abbc87d5be92ed35da01d5ba2b733c.jpg',
               }}>
               <View style={itemHorizontal.cardContent}>
                 <View style={itemHorizontal.cardInfo}>
@@ -178,15 +195,7 @@ const ListBlog = () => {
                   </Text>
                   {/* <Text style={itemHorizontal.cardText}>Nov 10, 2023</Text> */}
                 </View>
-                <View>
-                  <View style={itemHorizontal.cardIcon}>
-                    <Receipt21
-                      color={colors.black()}
-                      variant="Linear"
-                      size={20}
-                    />
-                  </View>
-                </View>
+                <View></View>
               </View>
             </ImageBackground>
           </View>
@@ -205,15 +214,7 @@ const ListBlog = () => {
                   </Text>
                   {/* <Text style={itemHorizontal.cardText}>Nov 10, 2023</Text> */}
                 </View>
-                <View>
-                  <View style={itemHorizontal.cardIcon}>
-                    <Receipt21
-                      color={colors.black()}
-                      variant="Linear"
-                      size={20}
-                    />
-                  </View>
-                </View>
+                <View></View>
               </View>
             </ImageBackground>
           </View>
@@ -223,7 +224,7 @@ const ListBlog = () => {
               resizeMode="cover"
               imageStyle={{borderRadius: 50}}
               source={{
-                uri: 'https://i.pinimg.com/564x/a7/be/8d/a7be8dcb9281e1be1a43063156a99ee9.jpg',
+                uri: 'https://i.pinimg.com/564x/8e/11/d5/8e11d50d6099c433205ad7cb55e1ca15.jpg',
               }}>
               <View style={itemHorizontal.cardContent}>
                 <View style={itemHorizontal.cardInfo}>
@@ -232,15 +233,7 @@ const ListBlog = () => {
                   </Text>
                   {/* <Text style={itemHorizontal.cardText}>Nov 10, 2023</Text> */}
                 </View>
-                <View>
-                  <View style={itemHorizontal.cardIcon}>
-                    <Receipt21
-                      color={colors.black()}
-                      variant="Linear"
-                      size={20}
-                    />
-                  </View>
-                </View>
+                <View></View>
               </View>
             </ImageBackground>
           </View>
@@ -259,24 +252,387 @@ const ListBlog = () => {
                   </Text>
                   {/* <Text style={itemHorizontal.cardText}> </Text> */}
                 </View>
-                <View>
-                  <View style={itemHorizontal.cardIcon}>
-                    <Receipt21
-                      color={colors.black()}
-                      variant="Linear"
-                      size={20}
-                    />
-                  </View>
-                </View>
+                <View></View>
               </View>
             </ImageBackground>
           </View>
         </ScrollView>
-       
+
+        <View>
+          <Text
+            style={{
+              color: 'black',
+              paddingHorizontal: 24,
+              fontSize: 20,
+              fontFamily: fontType['Pjs-Bold'],
+            }}>
+            KATEGORI
+          </Text>
+        </View>
+        <View style={{...category.item, marginLeft: 10}}>
+          <View>
+            <View style={category.itemCat}>
+              <Health size={38} variant="Bulk" style={{color: '#618264'}} />
+            </View>
+            <View style={{alignItems: 'center', paddingTop: 10}}>
+              <Text style={category.textCat}>CEK UP</Text>
+            </View>
+          </View>
+          <View>
+            <View style={category.itemCat}>
+              <People size={38} variant="Bulk" style={{color: '#618264'}} />
+            </View>
+            <View style={{alignItems: 'center', paddingTop: 10}}>
+              <Text style={category.textCat}>DOKTER</Text>
+            </View>
+          </View>
+          <View>
+            <View style={category.itemCat}>
+              <Activity size={38} variant="Bulk" style={{color: '#618264'}} />
+            </View>
+            <View style={{alignItems: 'center', paddingTop: 10}}>
+              <Text style={category.textCat}>DATA</Text>
+            </View>
+          </View>
+          <View>
+            <View style={category.itemCat}>
+              <Call size={38} variant="Bulk" style={{color: '#618264'}} />
+            </View>
+            <View style={{alignItems: 'center', paddingTop: 10}}>
+              <Text style={category.textCat}>LAYANAN</Text>
+            </View>
+          </View>
+        </View>
+        <View>
+          <Text
+            style={{
+              color: 'black',
+              paddingHorizontal: 24,
+              fontSize: 20,
+              fontFamily: fontType['Pjs-Bold'],
+            }}>
+            PAKET LAYANAN
+          </Text>
+        </View>
+        <ScrollView
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          contentContainerStyle={{gap: 14}}>
+          <View style={{...itemHorizontal.cardItem, marginLeft: 24}}>
+            <ImageBackground
+              style={{width: 200,
+                height: 300,
+                borderRadius: 5,}}
+              resizeMode="cover"
+              imageStyle={{borderRadius: 50}}
+              source={{
+                uri: 'https://i.pinimg.com/564x/2f/d3/6e/2fd36e1138dfe9c62557abeaf43c2544.jpg',
+              }}>
+              <View style={itemHorizontal.cardContent}>
+                <View style={itemHorizontal.cardInfo}>
+                  <Text style={itemHorizontal.cardTitle}>
+                    Paket Olahraga
+                  </Text>
+                  <Text style={itemHorizontal.cardText}></Text>
+                </View>
+                <View></View>
+              </View>
+            </ImageBackground>
+          </View>
+          <View style={itemHorizontal.cardItem}>
+            <ImageBackground
+              style={{width: 200,
+                height: 300,
+                borderRadius: 5,}}
+              resizeMode="cover"
+              imageStyle={{borderRadius: 50}}
+              source={{
+                uri: 'https://i.pinimg.com/564x/19/62/34/1962345b7829feba6d4259b6823a3378.jpg',
+              }}>
+              <View style={itemHorizontal.cardContent}>
+                <View style={itemHorizontal.cardInfo}>
+                  <Text style={itemHorizontal.cardTitle}>
+                   Paket Fasilitas Alat Bantu
+                  </Text>
+                  <Text style={itemHorizontal.cardText}></Text>
+                </View>
+                <View></View>
+              </View>
+            </ImageBackground>
+          </View>
+          <View style={itemHorizontal.cardItem}>
+            <ImageBackground
+              style={{width: 200,
+                height: 300,
+                borderRadius: 5,}}
+              resizeMode="cover"
+              imageStyle={{borderRadius: 50}}
+              source={{
+                uri: 'https://i.pinimg.com/474x/1e/10/42/1e1042c6696094639a5fb55673085769.jpg',
+              }}>
+              <View style={itemHorizontal.cardContent}>
+                <View style={itemHorizontal.cardInfo}>
+                  <Text style={itemHorizontal.cardTitle}>
+                    Paket Hiburan
+                  </Text>
+                  <Text style={itemHorizontal.cardText}></Text>
+                </View>
+                <View></View>
+              </View>
+            </ImageBackground>
+          </View>
+          <View style={itemHorizontal.cardItem}>
+            <ImageBackground
+              style={{width: 200,
+                height: 300,
+                borderRadius: 5,}}
+              resizeMode="cover"
+              imageStyle={{borderRadius: 50}}
+              source={{
+                uri: 'https://i.pinimg.com/474x/51/89/4d/51894d14d3c6626a89bffd67d510870d.jpg',
+              }}>
+              <View style={itemHorizontal.cardContent}>
+                <View style={itemHorizontal.cardInfo}>
+                  <Text style={itemHorizontal.cardTitle}>
+                   Paket Hobi
+                  </Text>
+                  <Text style={itemHorizontal.cardText}></Text>
+                </View>
+                <View></View>
+              </View>
+            </ImageBackground>
+          </View>
+          <View style={{...itemHorizontal.cardItem, marginRight: 24}}>
+            <ImageBackground
+              style={{width: 200,
+                height: 300,
+                borderRadius: 5,}}
+              resizeMode="cover"
+              imageStyle={{borderRadius: 50}}
+              source={{
+                uri: 'https://i.pinimg.com/474x/24/00/eb/2400ebf0c5faa5cc0556e4bc3e079efe.jpg',
+              }}>
+              <View style={itemHorizontal.cardContent}>
+                <View style={itemHorizontal.cardInfo}>
+                  <Text style={itemHorizontal.cardTitle}>
+                    Paket Refreshing
+                  </Text>
+                  <Text style={itemHorizontal.cardText}> </Text> 
+                </View>
+                <View></View>
+              </View>
+            </ImageBackground>
+          </View>
+        </ScrollView>
+        <View style={{paddingHorizontal: 24, paddingTop: 16}}>
+          <Text
+            style={{
+              color: 'black',
+              fontSize: 20,
+              fontFamily: fontType['Pjs-Bold'],
+            }}>
+            FOR YOU
+          </Text>
+          <View>
+            <View style={beritaLansia.listCard}>
+              <View style={beritaLansia.cardItem}>
+                <Image
+                  style={beritaLansia.cardImage}
+                  source={{
+                    uri: 'https://akcdn.detik.net.id/visual/2021/02/05/ilustrasi-nenek-tidur_169.jpeg',
+                  }}
+                />
+                <View style={beritaLansia.cardContent}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <View style={{gap: 5, width: '70%'}}>
+                      <Text style={beritaLansia.cardCategory}>Gaya Hidup</Text>
+                      <Text style={beritaLansia.cardTitle}>
+                        Alasan waktu tidur Lansia Lebih Sedikit
+                      </Text>
+                    </View>
+                    <Receipt21
+                      color={colors.grey(0.6)}
+                      variant="Linear"
+                      size={20}
+                    />
+                  </View>
+                  <View style={beritaLansia.cardInfo}>
+                    <Clock
+                      size={10}
+                      variant="Linear"
+                      color={colors.grey(0.6)}
+                    />
+                    <Text style={beritaLansia.cardText}>05 Agu 2021</Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={beritaLansia.listCard}>
+              <View style={beritaLansia.cardItem}>
+                <Image
+                  style={beritaLansia.cardImage}
+                  source={{
+                    uri: 'https://akcdn.detik.net.id/visual/2018/07/24/fac61668-57eb-4cdc-9df6-81c81a5a79e5_169.jpeg',
+                  }}
+                />
+                <View style={beritaLansia.cardContent}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <View style={{gap: 5, width: '70%'}}>
+                      <Text style={beritaLansia.cardCategory}>Gaya Hidup</Text>
+                      <Text style={beritaLansia.cardTitle}>
+                        Berdansa Tingkatkan Kesehatan Otak di Hari Tua
+                      </Text>
+                    </View>
+                    <Receipt21
+                      color={colors.grey(0.6)}
+                      variant="Linear"
+                      size={20}
+                    />
+                  </View>
+                  <View style={beritaLansia.cardInfo}>
+                    <Clock
+                      size={10}
+                      variant="Linear"
+                      color={colors.grey(0.6)}
+                    />
+                    <Text style={beritaLansia.cardText}>12 Mar 2022</Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={beritaLansia.listCard}>
+              <View style={beritaLansia.cardItem}>
+                <Image
+                  style={beritaLansia.cardImage}
+                  source={{
+                    uri: 'https://akcdn.detik.net.id/visual/2015/07/01/b2c13c98-93f5-42b0-8333-6383d0b48f5b_169.jpg',
+                  }}
+                />
+                <View style={beritaLansia.cardContent}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <View style={{gap: 5, width: '70%'}}>
+                      <Text style={beritaLansia.cardCategory}>Gaya Hidup</Text>
+                      <Text style={beritaLansia.cardTitle}>
+                        5 Tips Menajaga Kebugaran bagi Mereka yang Lanjut Usia
+                      </Text>
+                    </View>
+                    <Receipt21
+                      color={colors.grey(0.6)}
+                      variant="Linear"
+                      size={20}
+                    />
+                  </View>
+                  <View style={beritaLansia.cardInfo}>
+                    <Clock
+                      size={10}
+                      variant="Linear"
+                      color={colors.grey(0.6)}
+                    />
+                    <Text style={beritaLansia.cardText}>22 Sep 2022</Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={beritaLansia.listCard}>
+              <View style={beritaLansia.cardItem}>
+                <Image
+                  style={beritaLansia.cardImage}
+                  source={{
+                    uri: 'https://akcdn.detik.net.id/visual/2018/06/26/42ca7b41-b395-4c37-ad5b-112db93742fe_169.jpeg',
+                  }}
+                />
+                <View style={beritaLansia.cardContent}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <View style={{gap: 5, width: '70%'}}>
+                      <Text style={beritaLansia.cardCategory}>Gaya Hidup</Text>
+                      <Text style={beritaLansia.cardTitle}>
+                        Media Sosial kurangi Depresi pada Lansia
+                      </Text>
+                    </View>
+                    <Receipt21
+                      color={colors.grey(0.6)}
+                      variant="Linear"
+                      size={20}
+                    />
+                  </View>
+                  <View style={beritaLansia.cardInfo}>
+                    <Clock
+                      size={10}
+                      variant="Linear"
+                      color={colors.grey(0.6)}
+                    />
+                    <Text style={beritaLansia.cardText}>19 Agu 2023</Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
       </View>
     </ScrollView>
   );
 };
+
+const beritaLansia = StyleSheet.create({
+  listCard: {
+    paddingVertical: 10,
+  },
+  cardItem: {
+    backgroundColor: 'rgba(168, 107, 71, 0.05)',
+    flexDirection: 'row',
+    borderRadius: 10,
+  },
+  cardCategory: {
+    color: 'rgba(168, 107, 71, 1)',
+    fontSize: 10,
+    fontFamily: fontType['Pjs-SemiBold'],
+  },
+  cardTitle: {
+    fontSize: 14,
+    fontFamily: fontType['Pjs-Bold'],
+    color: colors.black(),
+  },
+  cardText: {
+    fontSize: 10,
+    fontFamily: fontType['Pjs-Medium'],
+    color: 'rgba(168, 107, 71, 0.6)',
+  },
+  cardImage: {
+    width: 100,
+    height: 'auto',
+    borderRadius: 10,
+    resizeMode: 'cover',
+  },
+  cardInfo: {
+    flexDirection: 'row',
+    gap: 5,
+    alignItems: 'center',
+  },
+  cardContent: {
+    gap: 10,
+    justifyContent: 'space-between',
+    paddingRight: 10,
+    paddingLeft: 15,
+    flex: 1,
+    paddingVertical: 10,
+  },
+});
 
 const itemVertical = StyleSheet.create({
   listCard: {
@@ -329,8 +685,8 @@ const itemHorizontal = StyleSheet.create({
     width: 'auto',
   },
   cardImage: {
-    width: 350,
-    height: 200,
+    width: 380,
+    height: 265,
     borderRadius: 5,
   },
   cardContent: {

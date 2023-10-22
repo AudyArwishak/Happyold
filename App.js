@@ -22,6 +22,8 @@ import {
   Setting,
 } from 'iconsax-react-native';
 import {fontType, colors} from './src/theme';
+import {BlogList} from './data';
+import {ItemBerita} from './src/components';
 
 export default function App() {
   const [searchText, setSearchText] = useState('');
@@ -320,9 +322,7 @@ const ListBlog = () => {
           contentContainerStyle={{gap: 14}}>
           <View style={{...itemHorizontal.cardItem, marginLeft: 24}}>
             <ImageBackground
-              style={{width: 200,
-                height: 300,
-                borderRadius: 5,}}
+              style={{width: 200, height: 300, borderRadius: 5}}
               resizeMode="cover"
               imageStyle={{borderRadius: 50}}
               source={{
@@ -330,9 +330,7 @@ const ListBlog = () => {
               }}>
               <View style={itemHorizontal.cardContent}>
                 <View style={itemHorizontal.cardInfo}>
-                  <Text style={itemHorizontal.cardTitle}>
-                    Paket Olahraga
-                  </Text>
+                  <Text style={itemHorizontal.cardTitle}>Paket Olahraga</Text>
                   <Text style={itemHorizontal.cardText}></Text>
                 </View>
                 <View></View>
@@ -341,9 +339,7 @@ const ListBlog = () => {
           </View>
           <View style={itemHorizontal.cardItem}>
             <ImageBackground
-              style={{width: 200,
-                height: 300,
-                borderRadius: 5,}}
+              style={{width: 200, height: 300, borderRadius: 5}}
               resizeMode="cover"
               imageStyle={{borderRadius: 50}}
               source={{
@@ -352,7 +348,7 @@ const ListBlog = () => {
               <View style={itemHorizontal.cardContent}>
                 <View style={itemHorizontal.cardInfo}>
                   <Text style={itemHorizontal.cardTitle}>
-                   Paket Fasilitas Alat Bantu
+                    Paket Fasilitas Alat Bantu
                   </Text>
                   <Text style={itemHorizontal.cardText}></Text>
                 </View>
@@ -362,9 +358,7 @@ const ListBlog = () => {
           </View>
           <View style={itemHorizontal.cardItem}>
             <ImageBackground
-              style={{width: 200,
-                height: 300,
-                borderRadius: 5,}}
+              style={{width: 200, height: 300, borderRadius: 5}}
               resizeMode="cover"
               imageStyle={{borderRadius: 50}}
               source={{
@@ -372,9 +366,7 @@ const ListBlog = () => {
               }}>
               <View style={itemHorizontal.cardContent}>
                 <View style={itemHorizontal.cardInfo}>
-                  <Text style={itemHorizontal.cardTitle}>
-                    Paket Hiburan
-                  </Text>
+                  <Text style={itemHorizontal.cardTitle}>Paket Hiburan</Text>
                   <Text style={itemHorizontal.cardText}></Text>
                 </View>
                 <View></View>
@@ -383,9 +375,7 @@ const ListBlog = () => {
           </View>
           <View style={itemHorizontal.cardItem}>
             <ImageBackground
-              style={{width: 200,
-                height: 300,
-                borderRadius: 5,}}
+              style={{width: 200, height: 300, borderRadius: 5}}
               resizeMode="cover"
               imageStyle={{borderRadius: 50}}
               source={{
@@ -393,9 +383,7 @@ const ListBlog = () => {
               }}>
               <View style={itemHorizontal.cardContent}>
                 <View style={itemHorizontal.cardInfo}>
-                  <Text style={itemHorizontal.cardTitle}>
-                   Paket Hobi
-                  </Text>
+                  <Text style={itemHorizontal.cardTitle}>Paket Hobi</Text>
                   <Text style={itemHorizontal.cardText}></Text>
                 </View>
                 <View></View>
@@ -404,9 +392,7 @@ const ListBlog = () => {
           </View>
           <View style={{...itemHorizontal.cardItem, marginRight: 24}}>
             <ImageBackground
-              style={{width: 200,
-                height: 300,
-                borderRadius: 5,}}
+              style={{width: 200, height: 300, borderRadius: 5}}
               resizeMode="cover"
               imageStyle={{borderRadius: 50}}
               source={{
@@ -414,10 +400,8 @@ const ListBlog = () => {
               }}>
               <View style={itemHorizontal.cardContent}>
                 <View style={itemHorizontal.cardInfo}>
-                  <Text style={itemHorizontal.cardTitle}>
-                    Paket Refreshing
-                  </Text>
-                  <Text style={itemHorizontal.cardText}> </Text> 
+                  <Text style={itemHorizontal.cardTitle}>Paket Refreshing</Text>
+                  <Text style={itemHorizontal.cardText}> </Text>
                 </View>
                 <View></View>
               </View>
@@ -434,154 +418,9 @@ const ListBlog = () => {
             FOR YOU
           </Text>
           <View>
-            <View style={beritaLansia.listCard}>
-              <View style={beritaLansia.cardItem}>
-                <Image
-                  style={beritaLansia.cardImage}
-                  source={{
-                    uri: 'https://akcdn.detik.net.id/visual/2021/02/05/ilustrasi-nenek-tidur_169.jpeg',
-                  }}
-                />
-                <View style={beritaLansia.cardContent}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                    }}>
-                    <View style={{gap: 5, width: '70%'}}>
-                      <Text style={beritaLansia.cardCategory}>Gaya Hidup</Text>
-                      <Text style={beritaLansia.cardTitle}>
-                        Alasan waktu tidur Lansia Lebih Sedikit
-                      </Text>
-                    </View>
-                    <Receipt21
-                      color={colors.grey(0.6)}
-                      variant="Linear"
-                      size={20}
-                    />
-                  </View>
-                  <View style={beritaLansia.cardInfo}>
-                    <Clock
-                      size={10}
-                      variant="Linear"
-                      color={colors.grey(0.6)}
-                    />
-                    <Text style={beritaLansia.cardText}>05 Agu 2021</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-            <View style={beritaLansia.listCard}>
-              <View style={beritaLansia.cardItem}>
-                <Image
-                  style={beritaLansia.cardImage}
-                  source={{
-                    uri: 'https://akcdn.detik.net.id/visual/2018/07/24/fac61668-57eb-4cdc-9df6-81c81a5a79e5_169.jpeg',
-                  }}
-                />
-                <View style={beritaLansia.cardContent}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                    }}>
-                    <View style={{gap: 5, width: '70%'}}>
-                      <Text style={beritaLansia.cardCategory}>Gaya Hidup</Text>
-                      <Text style={beritaLansia.cardTitle}>
-                        Berdansa Tingkatkan Kesehatan Otak di Hari Tua
-                      </Text>
-                    </View>
-                    <Receipt21
-                      color={colors.grey(0.6)}
-                      variant="Linear"
-                      size={20}
-                    />
-                  </View>
-                  <View style={beritaLansia.cardInfo}>
-                    <Clock
-                      size={10}
-                      variant="Linear"
-                      color={colors.grey(0.6)}
-                    />
-                    <Text style={beritaLansia.cardText}>12 Mar 2022</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-            <View style={beritaLansia.listCard}>
-              <View style={beritaLansia.cardItem}>
-                <Image
-                  style={beritaLansia.cardImage}
-                  source={{
-                    uri: 'https://akcdn.detik.net.id/visual/2015/07/01/b2c13c98-93f5-42b0-8333-6383d0b48f5b_169.jpg',
-                  }}
-                />
-                <View style={beritaLansia.cardContent}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                    }}>
-                    <View style={{gap: 5, width: '70%'}}>
-                      <Text style={beritaLansia.cardCategory}>Gaya Hidup</Text>
-                      <Text style={beritaLansia.cardTitle}>
-                        5 Tips Menajaga Kebugaran bagi Mereka yang Lanjut Usia
-                      </Text>
-                    </View>
-                    <Receipt21
-                      color={colors.grey(0.6)}
-                      variant="Linear"
-                      size={20}
-                    />
-                  </View>
-                  <View style={beritaLansia.cardInfo}>
-                    <Clock
-                      size={10}
-                      variant="Linear"
-                      color={colors.grey(0.6)}
-                    />
-                    <Text style={beritaLansia.cardText}>22 Sep 2022</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-            <View style={beritaLansia.listCard}>
-              <View style={beritaLansia.cardItem}>
-                <Image
-                  style={beritaLansia.cardImage}
-                  source={{
-                    uri: 'https://akcdn.detik.net.id/visual/2018/06/26/42ca7b41-b395-4c37-ad5b-112db93742fe_169.jpeg',
-                  }}
-                />
-                <View style={beritaLansia.cardContent}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                    }}>
-                    <View style={{gap: 5, width: '70%'}}>
-                      <Text style={beritaLansia.cardCategory}>Gaya Hidup</Text>
-                      <Text style={beritaLansia.cardTitle}>
-                        Media Sosial kurangi Depresi pada Lansia
-                      </Text>
-                    </View>
-                    <Receipt21
-                      color={colors.grey(0.6)}
-                      variant="Linear"
-                      size={20}
-                    />
-                  </View>
-                  <View style={beritaLansia.cardInfo}>
-                    <Clock
-                      size={10}
-                      variant="Linear"
-                      color={colors.grey(0.6)}
-                    />
-                    <Text style={beritaLansia.cardText}>19 Agu 2023</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
+            {BlogList.map((item, index) => (
+              <ItemBerita item={item} key={index} />
+            ))}
           </View>
         </View>
       </View>

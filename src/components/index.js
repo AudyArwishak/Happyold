@@ -1,2 +1,3 @@
 import ItemBerita from './itemBerita';
-export {ItemBerita};
+import ItemDoc from './itemDoc';
+export {ItemBerita, ItemDoc};

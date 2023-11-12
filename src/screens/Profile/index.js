@@ -5,7 +5,7 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import {Bookmark2, Logout, Setting2, UserAdd} from 'iconsax-react-native';
+import {Bookmark2, Logout, Setting2,} from 'iconsax-react-native';
 import React from 'react';
 import FastImage from 'react-native-fast-image';
 import {ProfileData, BlogList} from '../../../data';

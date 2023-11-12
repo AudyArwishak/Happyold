@@ -34,9 +34,7 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={{flex: 1}}>
-          <Text style={styles.title}>DOKTER.</Text>
-        </View>
+        <View style={{flex: 1}}></View>
         <View style={{flexDirection: 'row'}}>
           <Setting color={colors.black()} variant="Linear" size={24} />
         </View>

@@ -94,7 +94,6 @@ const styles = StyleSheet.create({
   searchButton: {},
   icon: {
     margin: 8,
-    // marginRight: 8,
   },
   input: {
     flex: 1,

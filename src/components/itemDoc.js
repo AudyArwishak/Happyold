@@ -9,7 +9,9 @@ import {
 import {Receipt21, Clock, Message, UserAdd} from 'iconsax-react-native';
 import React, {useState} from 'react';
 import {fontType, colors} from '../theme';
+import {useNavigation} from '@react-navigation/native';
 
+const navigation = useNavigation();
 const ItemDoc = ({item}) => {
   const [bookmark, setBookmark] = useState([]);
   const toggleBookmark = itemId => {
@@ -21,7 +23,7 @@ const ItemDoc = ({item}) => {
   };
 
   return (
-    <View style={beritaLansia.listCard}>
+    <TouchableOpacity style={beritaLansia.listCard}onPress={() => navigation.navigate('DokterDetail', {blogId: item.id})}>
       <View style={beritaLansia.cardItem}>
         <Image
           style={beritaLansia.cardImage}
@@ -52,7 +54,7 @@ const ItemDoc = ({item}) => {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

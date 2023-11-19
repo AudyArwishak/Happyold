@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   TextInput,
+  Animated,
 } from 'react-native';
 import {
   Notification,
@@ -25,6 +26,12 @@ import {fontType, colors} from '../../theme';
 import {BlogList, Doclist} from '.../../../data';
 import {ItemBerita, ItemDoc} from '../../components';
 
+const scrollY = useRef(new Animated.Value(0)).current;
+const diffClampY = Animated.diffClamp(scrollY, 0, 60);
+const headerY = diffClampY.interpolate({
+  inputRange: [0, 80],
+  outputRange: [0, -80],
+});
 export default function Home() {
   const [searchText, setSearchText] = useState('');
   const handleSearchPress = text => {
@@ -33,36 +40,33 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={{flex: 1}}></View>
-        <View style={{flexDirection: 'row'}}>
-          <Setting color={colors.black()} variant="Linear" size={24} />
-        </View>
-      </View>
-      <View style={{paddingHorizontal: 24, marginTop: 10}}>
-        <View style={styles.searchContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Cari"
-            onChangeText={handleSearchPress}
-            value={searchText}
-            placeholderTextColor="grey"
-          />
-          <View style={styles.searchButtonContainer}>
-            <TouchableOpacity style={styles.searchButton}>
-              <SearchNormal
-                color={colors.black()}
-                variant="Linear"
-                size={24}
-                style={styles.icon}
-              />
-            </TouchableOpacity>
+      <Animated.View
+        style={[styles.header, {transform: [{translateY: headerY}]}]}>
+        <View style={{paddingHorizontal: 24}}>
+          <View style={styles.searchContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Cari"
+              onChangeText={handleSearchPress}
+              value={searchText}
+              placeholderTextColor="grey"
+            />
+            <View style={styles.searchButtonContainer}>
+              <TouchableOpacity style={styles.searchButton}>
+                <SearchNormal
+                  color={colors.black()}
+                  variant="Linear"
+                  size={24}
+                  style={styles.icon}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
+      </Animated.View>
+      <View>
+        <ListBlog />
       </View>
-
-      <View style={styles.listCategory}></View>
-      <ListBlog />
     </View>
   );
 }
@@ -98,14 +102,15 @@ const styles = StyleSheet.create({
     height: 45,
   },
   header: {
-    paddingHorizontal: 24,
-    // justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 52,
-    elevation: 8,
+    // paddingHorizontal: 24,
+    // height: 120,
     paddingTop: 8,
     paddingBottom: 4,
+    position: 'absolute',
+    zIndex: 1000,
+    top: 0,
+    right: 0,
+    left: 0,
   },
   title: {
     fontSize: 20,
@@ -149,7 +154,15 @@ const category = StyleSheet.create({
 
 const ListBlog = () => {
   return (
-    <ScrollView>
+    <Animated.ScrollView
+      showsVerticalScrollIndicator={false}
+      onScroll={Animated.event([{nativeEvent: {contentOffset: {y: scrollY}}}], {
+        useNativeDriver: true,
+      })}
+      contentContainerStyle={{
+        paddingTop: 60,
+        paddingBottom: 20,
+      }}>
       <View style={styles.listBlog}>
         <View style={{paddingHorizontal: 24}}>
           <Text
@@ -167,7 +180,7 @@ const ListBlog = () => {
           </View>
         </View>
       </View>
-    </ScrollView>
+    </Animated.ScrollView>
   );
 };
 

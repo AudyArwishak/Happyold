@@ -1,14 +1,8 @@
 import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Home, Profile, DokterDetail, Dokter} from '../screens';
-import {
-  Home3,
-  People,
-  Receipt21,
-  Profile2User,
-  
-} from 'iconsax-react-native';
+import {Home, Profile, DokterDetail, Dokter, ContactDocForm} from '../screens';
+import {Home3, People, Receipt21, Profile2User} from 'iconsax-react-native';
 import {fontType, colors} from '../theme';
 
 const Tab = createBottomTabNavigator();
@@ -90,6 +84,18 @@ const Router = () => {
       <Stack.Screen
         name="DokterDetail"
         component={DokterDetail}
+        options={{
+          headerShown: false,
+          animationEnabled: true,
+          animationTypeForReplace: 'pop',
+          gestureEnabled: true,
+          gestureDirection: 'horizontal',
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+      <Stack.Screen
+        name="ContactDoc"
+        component={ContactDocForm}
         options={{
           headerShown: false,
           animationEnabled: true,

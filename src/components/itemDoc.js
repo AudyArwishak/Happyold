@@ -23,7 +23,9 @@ const ItemDoc = ({item}) => {
   };
 
   return (
-    <TouchableOpacity style={beritaLansia.listCard}onPress={() => navigation.navigate('DokterDetail', {blogId: item.id})}>
+    <TouchableOpacity
+      style={beritaLansia.listCard}
+      onPress={() => navigation.navigate('DokterDetail', {blogId: item.id})}>
       <View style={beritaLansia.cardItem}>
         <Image
           style={beritaLansia.cardImage}
@@ -41,12 +43,8 @@ const ItemDoc = ({item}) => {
               <Text style={beritaLansia.cardCategory}>{item.no}</Text>
               <Text style={beritaLansia.cardTitle}>{item.nama}</Text>
             </View>
-            <TouchableOpacity onPress={() => toggleBookmark(item.id)}>
-              <UserAdd
-                color={'brown'}
-                variant={bookmark.includes(item.id) ? 'Bold' : 'Linear'}
-                size={25}
-              />
+            <TouchableOpacity onPress={() => navigation.navigate('ContactDoc')}>
+              <UserAdd color={'brown'} variant={'Linear'} size={25} />
             </TouchableOpacity>
           </View>
           <View style={beritaLansia.cardInfo}>

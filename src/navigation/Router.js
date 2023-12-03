@@ -1,8 +1,23 @@
 import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Home, Profile, DokterDetail, Dokter, ContactDocForm} from '../screens';
-import {Home3, People, Receipt21, Profile2User} from 'iconsax-react-native';
+import {
+  Home,
+  Profile,
+  DokterDetail,
+  Dokter,
+  ContactDocForm,
+  Pesan,
+  DetailPesan,
+  EditContactDocForm,
+} from '../screens';
+import {
+  Home3,
+  People,
+  Receipt21,
+  Profile2User,
+  Message,
+} from 'iconsax-react-native';
 import {fontType, colors} from '../theme';
 
 const Tab = createBottomTabNavigator();
@@ -56,6 +71,21 @@ function MainApp() {
         }}
       />
       <Tab.Screen
+        name="Pesan"
+        component={Pesan}
+        options={{
+          tabBarLabel: 'Pesan',
+          tabBarIcon: ({focused, color}) => (
+            <Message
+              color={color}
+              variant={focused ? 'Bold' : 'Linear'}
+              size={24}
+            />
+          ),
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
         name="Profile"
         component={Profile}
         options={{
@@ -96,6 +126,30 @@ const Router = () => {
       <Stack.Screen
         name="ContactDoc"
         component={ContactDocForm}
+        options={{
+          headerShown: false,
+          animationEnabled: true,
+          animationTypeForReplace: 'pop',
+          gestureEnabled: true,
+          gestureDirection: 'horizontal',
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+      <Stack.Screen
+        name="DetailPesan"
+        component={DetailPesan}
+        options={{
+          headerShown: false,
+          animationEnabled: true,
+          animationTypeForReplace: 'pop',
+          gestureEnabled: true,
+          gestureDirection: 'horizontal',
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+      <Stack.Screen
+        name="EditPesan"
+        component={EditContactDocForm}
         options={{
           headerShown: false,
           animationEnabled: true,

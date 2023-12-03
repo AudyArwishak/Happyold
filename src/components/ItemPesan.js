@@ -6,23 +6,18 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {Receipt21, Clock, Message} from 'iconsax-react-native';
+import {Receipt21, Clock, Message, UserAdd} from 'iconsax-react-native';
 import React, {useState} from 'react';
 import {fontType, colors} from '../theme';
-import {formatDate} from '../utils/formatDate';
+import {useNavigation} from '@react-navigation/native';
+import {formatDate} from '../utils/fomatDate';
 
-const ItemBerita = ({item}) => {
-  const [bookmark, setBookmark] = useState([]);
-  const toggleBookmark = itemId => {
-    if (bookmark.includes(itemId)) {
-      setBookmark(bookmark.filter(id => id !== itemId));
-    } else {
-      setBookmark([...bookmark, itemId]);
-    }
-  };
-
+const navigation = useNavigation();
+const ItemPesan = ({item}) => {
   return (
-    <View style={beritaLansia.listCard}>
+    <TouchableOpacity
+      style={beritaLansia.listCard}
+      onPress={() => navigation.navigate('DetailPesan', {blogId: item.id})}>
       <View style={beritaLansia.cardItem}>
         <Image
           style={beritaLansia.cardImage}
@@ -37,28 +32,22 @@ const ItemBerita = ({item}) => {
               justifyContent: 'space-between',
             }}>
             <View style={{gap: 5, width: '70%'}}>
-              <Text style={beritaLansia.cardCategory}>{item.category}</Text>
-              <Text style={beritaLansia.cardTitle}>{item.title}</Text>
+              <Text style={beritaLansia.cardCategory}>
+                {formatDate(item.createdAt)}
+              </Text>
+              <Text style={beritaLansia.cardTitle}>{item.nama}</Text>
             </View>
-            <TouchableOpacity onPress={() => toggleBookmark(item.id)}>
-              <Receipt21
-                color={'brown'}
-                variant={bookmark.includes(item.id) ? 'Bold' : 'Linear'}
-                size={25}
-              />
-            </TouchableOpacity>
           </View>
           <View style={beritaLansia.cardInfo}>
-            <Clock size={10} variant="Linear" color={colors.grey(0.6)} />
-            <Text style={beritaLansia.cardText}>{item.createdAt}</Text>
+            <Text style={beritaLansia.cardText}>{item.keluhan}</Text>
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
-export default ItemBerita;
+export default ItemPesan;
 const beritaLansia = StyleSheet.create({
   listCard: {
     paddingVertical: 10,

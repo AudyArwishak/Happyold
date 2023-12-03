@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -13,17 +13,42 @@ import {useNavigation} from '@react-navigation/native';
 import {fontType, colors} from '../../theme';
 import axios from 'axios';
 
-const AddContactDocForm = () => {
-  const [loading, setLoading] = useState(false);
-  const handleUpload = async () => {
+const EditContactDocForm = ({route}) => {
+  const {blogId} = route.params;
+  const [blogData, setBlogData] = useState({
+    title: '',
+    content: '',
+  });
+  const [image, setImage] = useState(null);
+  const navigation = useNavigation();
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    getBlogById();
+  }, [blogId]);
+
+  const getBlogById = async () => {
+    try {
+      const response = await axios.get(
+        `https://656c64d6e1e03bfd572e422d.mockapi.io/pesan/${blogId}`,
+      );
+      setBlogData({
+        title: response.data.nama,
+        content: response.data.keluhan,
+      });
+      setImage(response.data.image);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleUpdate = async () => {
     setLoading(true);
     try {
       await axios
-        .post('https://656c64d6e1e03bfd572e422d.mockapi.io/pesan', {
+        .put(`https://656c64d6e1e03bfd572e422d.mockapi.io/pesan/${blogId}`, {
           nama: blogData.title,
           keluhan: blogData.content,
           image,
-          createdAt: new Date(),
         })
         .then(function (response) {
           console.log(response);
@@ -37,18 +62,12 @@ const AddContactDocForm = () => {
       console.log(e);
     }
   };
-  const [blogData, setBlogData] = useState({
-    title: '',
-    content: '',
-  });
   const handleChange = (key, value) => {
     setBlogData({
       ...blogData,
       [key]: value,
     });
   };
-  const [image, setImage] = useState(null);
-  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -56,7 +75,7 @@ const AddContactDocForm = () => {
           <ArrowLeft color={colors.black()} variant="Linear" size={24} />
         </TouchableOpacity>
         <View style={{flex: 1, alignItems: 'center'}}>
-          <Text style={styles.title}>Kirim Pesan</Text>
+          <Text style={styles.title}>Edit Pesan</Text>
         </View>
       </View>
       <ScrollView
@@ -94,7 +113,7 @@ const AddContactDocForm = () => {
             style={textInput.content}
           />
         </View>
-        <TouchableOpacity style={styles.button} onPress={handleUpload}>
+        <TouchableOpacity style={styles.button} onPress={handleUpdate}>
           <Text style={styles.buttonLabel}>Upload</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -108,7 +127,7 @@ const AddContactDocForm = () => {
   );
 };
 
-export default AddContactDocForm;
+export default EditContactDocForm;
 
 const styles = StyleSheet.create({
   container: {

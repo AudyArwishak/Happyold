@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "854155845466",
+    "project_id": "happyold-e7b6e",
+    "storage_bucket": "happyold-e7b6e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854155845466:android:6a744941bffd1030e39d63",
+        "android_client_info": {
+          "package_name": "com.happyold"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJx1Ty3VNLwNLM07cfhlzSTxRR7uqRhu8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

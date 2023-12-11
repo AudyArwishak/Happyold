@@ -1,4 +1,4 @@
-import React, {useState, useRef, useCallback} from 'react';
+import React, {useState, useRef, useCallback, useEffect} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -28,7 +28,9 @@ import {fontType, colors} from '../../theme';
 import {BlogList, Doclist} from '.../../../data';
 import {ItemBerita, ItemDoc, ItemPesan} from '../../components';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
-import axios from 'axios';
+import firestore from '@react-native-firebase/firestore';
+import {formatNumber} from '../../utils/formatNumber';
+import FastImage from 'react-native-fast-image';
 
 const scrollY = useRef(new Animated.Value(0)).current;
 const diffClampY = Animated.diffClamp(scrollY, 0, 60);
@@ -161,31 +163,41 @@ const ListBlog = () => {
   const [loading, setLoading] = useState(true);
   const [blogData, setBlogData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
-  const getDataBlog = async () => {
-    try {
-      const response = await axios.get(
-        'https://656c64d6e1e03bfd572e422d.mockapi.io/pesan',
-      );
-      setBlogData(response.data);
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  useEffect(() => {
+    const subscriber = firestore()
+      .collection('blog')
+      .onSnapshot(querySnapshot => {
+        const blogs = [];
+        querySnapshot.forEach(documentSnapshot => {
+          blogs.push({
+            ...documentSnapshot.data(),
+            id: documentSnapshot.id,
+          });
+        });
+        setBlogData(blogs);
+        setLoading(false);
+      });
+    return () => subscriber();
+  }, []);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     setTimeout(() => {
-      getDataBlog();
+      firestore()
+        .collection('blog')
+        .onSnapshot(querySnapshot => {
+          const blogs = [];
+          querySnapshot.forEach(documentSnapshot => {
+            blogs.push({
+              ...documentSnapshot.data(),
+              id: documentSnapshot.id,
+            });
+          });
+          setBlogData(blogs);
+        });
       setRefreshing(false);
     }, 1500);
   }, []);
-
-  useFocusEffect(
-    useCallback(() => {
-      getDataBlog();
-    }, []),
-  );
   return (
     <Animated.ScrollView
       showsVerticalScrollIndicator={false}

@@ -5,7 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   ArrowLeft,
   Like1,
@@ -19,9 +19,13 @@ import {BlogList, Doclist} from '../../../data';
 import FastImage from 'react-native-fast-image';
 import {fontType, colors} from '../../theme';
 import {Dokter} from '..';
-import axios from 'axios';
+//import axios from 'axios';
+import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 import {formatDate} from '../../utils/fomatDate';
+
 const DetailPesan = ({route}) => {
+  const navigation = useNavigation();
   const {blogId} = route.params;
   const [iconStates, setIconStates] = useState({
     liked: {variant: 'Linear', color: colors.grey(0.6)},
@@ -30,47 +34,55 @@ const DetailPesan = ({route}) => {
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    getBlogById();
-  }, [blogId]);
-
-  const getBlogById = async () => {
-    try {
-      const response = await axios.get(
-        `https://656c64d6e1e03bfd572e422d.mockapi.io/pesan/${blogId}`,
-      );
-      setSelectedBlog(response.data);
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
+  const actionSheetRef = useRef(null);
+  const openActionSheet = () => {
+    actionSheetRef.current?.show();
   };
-
+  const closeActionSheet = () => {
+    actionSheetRef.current?.hide();
+  };
+  useEffect(() => {
+    const subscriber = firestore()
+      .collection('blog')
+      .doc(blogId)
+      .onSnapshot(documentSnapshot => {
+        const blogData = documentSnapshot.data();
+        if (blogData) {
+          console.log('Blog data: ', blogData);
+          setSelectedBlog(blogData);
+        } else {
+          console.log(`Blog with ID ${blogId} not found.`);
+        }
+      });
+    setLoading(false);
+    return () => subscriber();
+  }, [blogId]);
   const navigateEdit = () => {
+    closeActionSheet();
     navigation.navigate('EditPesan', {blogId});
   };
   const handleDelete = async () => {
-    await axios
-      .delete(`https://656c64d6e1e03bfd572e422d.mockapi.io/pesan/${blogId}`)
-      .then(() => {
-        navigation.navigate('Pesan');
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  };
-  const navigation = useNavigation();
-  const toggleIcon = iconName => {
-    setIconStates(prevStates => ({
-      ...prevStates,
-      [iconName]: {
-        variant: prevStates[iconName].variant === 'Linear' ? 'Bold' : 'Linear',
-        color:
-          prevStates[iconName].variant === 'Linear'
-            ? colors.blue()
-            : colors.grey(0.6),
-      },
-    }));
+    setLoading(true);
+    try {
+      await firestore()
+        .collection('blog')
+        .doc(blogId)
+        .delete()
+        .then(() => {
+          console.log('Blog deleted!');
+        });
+      if (selectedBlog?.image) {
+        const imageRef = storage().refFromURL(selectedBlog?.image);
+        await imageRef.delete();
+      }
+      console.log('Blog deleted!');
+      closeActionSheet();
+      setSelectedBlog(null);
+      setLoading(false);
+      navigation.navigate('Pesan');
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <View style={styles.container}>

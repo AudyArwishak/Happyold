@@ -5,15 +5,65 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import {Bookmark2, Logout, Setting2,} from 'iconsax-react-native';
-import React from 'react';
+import {Bookmark2, Logout, Setting2} from 'iconsax-react-native';
+import React, {useEffect, useState, useRef} from 'react';
 import FastImage from 'react-native-fast-image';
 import {ProfileData, BlogList} from '../../../data';
 import {ItemSmall} from '../../components';
 import {fontType, colors} from '../../theme';
+import {useNavigation} from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const data = BlogList.slice(5);
 const Profile = () => {
+  const [profileData, setProfileData] = useState(null);
+  const navigation = useNavigation();
+  const actionSheetRef = useRef(null);
+  const openActionSheet = () => {
+    actionSheetRef.current?.show();
+  };
+  const closeActionSheet = () => {
+    actionSheetRef.current?.hide();
+  };
+
+  useEffect(() => {
+    const user = auth().currentUser;
+    const fetchProfileData = () => {
+      try {
+        const user = auth().currentUser;
+        if (user) {
+          const userId = user.uid;
+          const userRef = firestore().collection('users').doc(userId);
+          const unsubscribeProfile = userRef.onSnapshot(doc => {
+            if (doc.exists) {
+              const userData = doc.data();
+              setProfileData(userData);
+            } else {
+              console.error('Dokumen pengguna tidak ditemukan.');
+            }
+          });
+          return () => {
+            unsubscribeProfile();
+          };
+        }
+      } catch (error) {
+        console.error('Error fetching profile data:', error);
+      }
+    };
+    fetchProfileData();
+  }, []);
+  const handleLogout = async () => {
+    try {
+      closeActionSheet();
+      await auth().signOut();
+      await AsyncStorage.removeItem('userData');
+      navigation.replace('Login');
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -66,18 +116,18 @@ const Profile = () => {
               <Text style={profile.name}>History</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={{flexDirection: 'row', gap: 10, alignItems: 'center'}}>
-              <Logout color={'green'} variant={'Bulk'} size={25} />
-              <Text style={profile.name}>Logout</Text>
-            </View>
+          <TouchableOpacity
+            style={{flexDirection: 'row', gap: 10, alignItems: 'center'}}
+            onPress={handleLogout}>
+            <Logout color={'green'} variant={'Bulk'} size={25} />
+            <Text style={profile.name}>Logout</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
       <View
         style={{
           alignItems: 'center',
-          marginBottom: 10, 
+          marginBottom: 10,
         }}>
         <Text style={{color: 'black'}}>HAPPYOLD | V 1.0</Text>
       </View>

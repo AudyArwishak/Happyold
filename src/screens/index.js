@@ -6,6 +6,9 @@ import ContactDocForm from './ContactDocForm';
 import Pesan from './Pesan';
 import DetailPesan from './DetailPesan';
 import EditContactDocForm from './EditContactDocForm';
+import Login from './Login';
+import Register from './Register';
+import SplashScreen from './SplashScreen';
 export {
   Home,
   Dokter,
@@ -15,4 +18,7 @@ export {
   Pesan,
   DetailPesan,
   EditContactDocForm,
+  Login,
+  Register,
+  SplashScreen,
 };

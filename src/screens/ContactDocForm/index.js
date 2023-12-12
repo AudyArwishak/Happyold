@@ -15,6 +15,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import FastImage from 'react-native-fast-image';
+import auth from '@react-native-firebase/auth';
 
 const AddContactDocForm = () => {
   const handleImagePick = async () => {
@@ -33,6 +34,7 @@ const AddContactDocForm = () => {
   };
   const [loading, setLoading] = useState(false);
   const handleUpload = async () => {
+    const authorId = auth().currentUser.uid;
     let filename = image.substring(image.lastIndexOf('/') + 1);
     const extension = filename.split('.').pop();
     const name = filename.split('.').slice(0, -1).join('.');
@@ -69,110 +71,115 @@ const AddContactDocForm = () => {
   const [image, setImage] = useState(null);
   const navigation = useNavigation();
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <ArrowLeft color={colors.black()} variant="Linear" size={24} />
-        </TouchableOpacity>
-        <View style={{flex: 1, alignItems: 'center'}}>
-          <Text style={styles.title}>Kirim Pesan</Text>
+    <KeyboardAvoidingView
+      style={{flex: 1}}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      enabled>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <ArrowLeft color={colors.black()} variant="Linear" size={24} />
+          </TouchableOpacity>
+          <View style={{flex: 1, alignItems: 'center'}}>
+            <Text style={styles.title}>Kirim Pesan</Text>
+          </View>
         </View>
-      </View>
-      <ScrollView
-        contentContainerStyle={{
-          paddingHorizontal: 24,
-          paddingVertical: 10,
-          gap: 10,
-        }}>
-        <View style={textInput.borderDashed}>
-          <TextInput
-            placeholder="Nama Pasien"
-            value={blogData.title}
-            onChangeText={text => handleChange('title', text)}
-            placeholderTextColor={colors.grey(0.6)}
-            multiline
-            style={textInput.title}
-          />
-        </View>
-        <View style={[textInput.borderDashed, {minHeight: 250}]}>
-          <TextInput
-            placeholder="Keluhan/Pesan"
-            value={blogData.content}
-            onChangeText={text => handleChange('content', text)}
-            placeholderTextColor={colors.grey(0.6)}
-            multiline
-            style={textInput.content}
-          />
-        </View>
-        <View style={[textInput.borderDashed]}>
-          {image ? (
-            <View style={{position: 'relative'}}>
-              <FastImage
-                style={{width: '100%', height: 127, borderRadius: 5}}
-                source={{
-                  uri: image,
-                  headers: {Authorization: 'someAuthToken'},
-                  priority: FastImage.priority.high,
-                }}
-                resizeMode={FastImage.resizeMode.cover}
-              />
-              <TouchableOpacity
-                style={{
-                  position: 'absolute',
-                  top: -5,
-                  right: -5,
-                  backgroundColor: colors.blue(),
-                  borderRadius: 25,
-                }}
-                onPress={() => setImage(null)}>
-                <Add
-                  size={20}
-                  variant="Linear"
-                  color={colors.white()}
-                  style={{transform: [{rotate: '45deg'}]}}
+        <ScrollView
+          contentContainerStyle={{
+            paddingHorizontal: 24,
+            paddingVertical: 10,
+            gap: 10,
+          }}>
+          <View style={textInput.borderDashed}>
+            <TextInput
+              placeholder="Nama Pasien"
+              value={blogData.title}
+              onChangeText={text => handleChange('title', text)}
+              placeholderTextColor={colors.grey(0.6)}
+              multiline
+              style={textInput.title}
+            />
+          </View>
+          <View style={[textInput.borderDashed, {minHeight: 250}]}>
+            <TextInput
+              placeholder="Keluhan/Pesan"
+              value={blogData.content}
+              onChangeText={text => handleChange('content', text)}
+              placeholderTextColor={colors.grey(0.6)}
+              multiline
+              style={textInput.content}
+            />
+          </View>
+          <View style={[textInput.borderDashed]}>
+            {image ? (
+              <View style={{position: 'relative'}}>
+                <FastImage
+                  style={{width: '100%', height: 127, borderRadius: 5}}
+                  source={{
+                    uri: image,
+                    headers: {Authorization: 'someAuthToken'},
+                    priority: FastImage.priority.high,
+                  }}
+                  resizeMode={FastImage.resizeMode.cover}
                 />
-              </TouchableOpacity>
-            </View>
-          ) : (
-            <TouchableOpacity onPress={handleImagePick}>
-              <View
-                style={[
-                  textInput.borderDashed,
-                  {
-                    gap: 10,
-                    paddingVertical: 30,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  },
-                ]}>
-                <AddSquare
-                  color={colors.grey(0.6)}
-                  variant="Linear"
-                  size={42}
-                />
-                <Text
+                <TouchableOpacity
                   style={{
-                    fontFamily: fontType['Pjs-Regular'],
-                    fontSize: 12,
-                    color: colors.grey(0.6),
-                  }}>
-                  Upload Thumbnail
-                </Text>
+                    position: 'absolute',
+                    top: -5,
+                    right: -5,
+                    backgroundColor: colors.blue(),
+                    borderRadius: 25,
+                  }}
+                  onPress={() => setImage(null)}>
+                  <Add
+                    size={20}
+                    variant="Linear"
+                    color={colors.white()}
+                    style={{transform: [{rotate: '45deg'}]}}
+                  />
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
-          )}
-        </View>
-        <TouchableOpacity style={styles.button} onPress={handleUpload}>
-          <Text style={styles.buttonLabel}>Upload</Text>
-        </TouchableOpacity>
-      </ScrollView>
-      <View style={styles.bottomBar}></View>
-      {loading && (
-        <View style={styles.loadingOverlay}>
-          <ActivityIndicator size="large" color={colors.blue()} />
-        </View>
-      )}
-    </View>
+            ) : (
+              <TouchableOpacity onPress={handleImagePick}>
+                <View
+                  style={[
+                    textInput.borderDashed,
+                    {
+                      gap: 10,
+                      paddingVertical: 30,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    },
+                  ]}>
+                  <AddSquare
+                    color={colors.grey(0.6)}
+                    variant="Linear"
+                    size={42}
+                  />
+                  <Text
+                    style={{
+                      fontFamily: fontType['Pjs-Regular'],
+                      fontSize: 12,
+                      color: colors.grey(0.6),
+                    }}>
+                    Upload Thumbnail
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+          </View>
+          <TouchableOpacity style={styles.button} onPress={handleUpload}>
+            <Text style={styles.buttonLabel}>Upload</Text>
+          </TouchableOpacity>
+        </ScrollView>
+        <View style={styles.bottomBar}></View>
+        {loading && (
+          <View style={styles.loadingOverlay}>
+            <ActivityIndicator size="large" color={colors.blue()} />
+          </View>
+        )}
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 
